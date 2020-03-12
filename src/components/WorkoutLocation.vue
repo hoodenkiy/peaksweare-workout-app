@@ -3,23 +3,22 @@
 		<h2 class="text-center mb-4 text-info display-4">&mdash; Workout Path & Location &mdash;</h2>
 		<GmapMap
 			:center="center"
-			:zoom="11.5"
-			style="width: 100%; min-height: 400px"
 			:disable-default-ui="true"
 			:options="mapOptions"
+			style="width: 100%; min-height: 400px"
 			v-if="mapDataReady"
+			:zoom="11.5"
 		>
-
 			<gmap-polyline
-				v-for="(path, i) in paths"
-				:path.sync="path"
-				:options="{ strokeColor: i === 0 ? 'green' : 'red'}"
 				:key="`path-${i}`"
+				:options="{ strokeColor: i === 0 ? 'green' : 'red'}"
+				:path.sync="path"
+				v-for="(path, i) in paths"
 			/>
 		</GmapMap>
 		<pulse-loader
-			:loading="!mapDataReady"
 			color="#ccc"
+			:loading="!mapDataReady"
 			size="25px"
 		/>
 	</section>
@@ -28,7 +27,7 @@
 <script>
 
 import { mapState, mapActions } from 'vuex';
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
+import PulseLoader from 'vue-spinner/src/PulseLoader';
 
 export default {
 	components: {
@@ -73,24 +72,24 @@ export default {
 				this.mapDataReady = true;
 			});
 
-		// add an appropriate event listener
+		// listen for select range on the chart
 		document.addEventListener('custom-range', this.handleRange);
 	}
 };
 
 function handleRange(event) {
-			const startIndex = this.chartDataSet.indexOf(event.detail[0]);
-			const endIndex = this.chartDataSet.indexOf(event.detail[event.detail.length-1]);
+	const startIndex = this.chartDataSet.indexOf(event.detail[0]);
+	const endIndex = this.chartDataSet.indexOf(event.detail[event.detail.length-1]);
 
-			const startTime = this.chartDataSetTimes[startIndex];
-			const endTime = this.chartDataSetTimes[endIndex];
+	const startTime = this.chartDataSetTimes[startIndex];
+	const endTime = this.chartDataSetTimes[endIndex];
 
-			const range = {startTime, endTime}
+	const range = {startTime, endTime}
 
-			this.fetchMapData(range)
-				.then(pathArray => {
-					this.paths.push(pathArray);
-				});
+	this.fetchMapData(range)
+		.then(pathArray => {
+			this.paths.push(pathArray);
+		});
 }
 
 </script>

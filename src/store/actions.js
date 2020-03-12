@@ -125,7 +125,7 @@ export const calculateBestEffort = ({ state, commit }, intervalInMinutes = 20) =
 			}
 
 			return acc;
-		}, { // we begin with this object
+		}, { // we begin with this object, this is an accumulator
 			cadence: {
 				values: [],
 				label: 'Cadence'
@@ -155,17 +155,15 @@ export const calculateBestEffort = ({ state, commit }, intervalInMinutes = 20) =
 				label: 'Speed'
 			}
 		});
-		
-		commit(types.SET_BEST_EFFORT, bestEffort);
-};
 
+	commit(types.SET_BEST_EFFORT, bestEffort);
+};
 
 /**
  * Returns an array to be used as a dataset for a chart
  * @param intervalInMinutes
 */
 export const buildChartData = ({ state, commit }, intervalInMinutes = 5) => {
-
 	// this is the minute interval in miliseconds
 	let interval = intervalInMinutes * 60 * 1000;
 
@@ -210,6 +208,6 @@ export const buildChartData = ({ state, commit }, intervalInMinutes = 5) => {
 			return chartData;
 		}, []);
 
-		commit(types.SET_CHART_DATA_SET, chartDataSet);
-		commit(types.SET_CHART_DATA_SET_TIMES, chartDataSetTimes);
-}
+	commit(types.SET_CHART_DATA_SET, chartDataSet);
+	commit(types.SET_CHART_DATA_SET_TIMES, chartDataSetTimes);
+};

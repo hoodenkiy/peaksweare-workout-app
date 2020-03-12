@@ -1,9 +1,6 @@
 import * as types from './mutation-types';
 
 export default {
-	[types.SET_DATA_INITIALIZED](state, payload){
-		state.dataInitialized = payload;
-	},
 	[types.SET_BEST_EFFORT](state, payload){
 		state.bestEffort = payload;
 	},
@@ -12,5 +9,8 @@ export default {
 	},
 	[types.SET_CHART_DATA_SET_TIMES](state, payload){
 		state.chartDataSetTimes = payload;
+	},
+	[types.SET_DATA_INITIALIZED](state, payload){
+		state.dataInitialized = payload;
 	}
 };

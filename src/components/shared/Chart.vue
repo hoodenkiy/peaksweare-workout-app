@@ -7,16 +7,16 @@ export default {
 	extends: Line,
 	props: {
 		chartData: {
-			type: Object,
-			required: true
+			required: true,
+			type: Object
 		},
 		chartOptions: {
-			type: Object,
-			required: true
+			required: true,
+			type: Object
 		}
 	},
 	mounted () {
-		this.renderChart(this.chartData, this.chartOptions)
+		this.renderChart(this.chartData, this.chartOptions);
 	}
 };
 

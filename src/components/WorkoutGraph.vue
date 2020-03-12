@@ -10,9 +10,9 @@
 				/>
 			</div>
 			<pulse-loader
-				:loading="!dataInitialized"
 				color="#ccc"
 				size="25px"
+				:loading="!dataInitialized"
 			/>
 		</div>
 	</section>
@@ -23,7 +23,7 @@
 import { mapState } from 'vuex';
 import chartData from '../mixins/chart-data';
 import Chart from './shared/Chart';
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import PulseLoader from 'vue-spinner/src/PulseLoader';
 
 export default {
 	components: {

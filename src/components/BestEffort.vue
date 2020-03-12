@@ -43,9 +43,10 @@ export default {
 	},
 	beforeMount() {
 		// dispatch actions to get data
-		this.calculateBestEffort().then(() => {
-			this.dataLoaded = true;
-		})
+		this.calculateBestEffort()
+			.then(() => {
+				this.dataLoaded = true;
+			});
 	},
 };
 

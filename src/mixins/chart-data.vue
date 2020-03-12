@@ -1,26 +1,26 @@
 <script>
+
 import { mapState, mapMutations, mapActions } from 'vuex';
 
 export default {
 	computed: {
 		...mapState([
-			'workoutData',
 			'chartDataSet',
-			'chartDataSetTimes'
+			'chartDataSetTimes',
+			'workoutData'
 		]),
 		chartData() {
 				return {
 					labels: this.labels,
 					datasets: [
-						
 						{
 							label: 'Data Two',
-							data: [...this.chartDataSet],
+							data: [...this.chartDataSet], // we copy the existing dataset
 							borderWidth: 3,
 							backgroundColor: 'rgb(255, 99, 132)',
 							pointBackgroundColor: [],
 							pointBorderColor: [],
-							borderColor: 'rgb(255, 99, 132)',
+							borderColor: 'rgb(255, 99, 132)', // should probably com from a constant
 							fill: false,
 							pointRadius: [5],
 							pointHoverRadius: 7
@@ -41,7 +41,7 @@ export default {
 			},
 			chartOptions() {
 				return {
-					onClick(evt, activeElements) {
+					onClick(evt) {
 						var activePoint = this.getElementsAtEvent(evt)[0];
 
 						if (activePoint !== undefined) {
@@ -124,6 +124,7 @@ export default {
 			},
 	},
 	mounted() {
+		// in hind sight this should be in actions
 		this.buildChartData(this.timeInterval);
 		this.buildChartLabels(this.timeInterval);
 		this.SET_DATA_INITIALIZED(true);
@@ -133,7 +134,7 @@ export default {
 			labels: [],
 			data: [],
 			timeInterval: 3
-		}
+		};
 	},
 	methods: {
 		...mapMutations([
