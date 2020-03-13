@@ -49,12 +49,13 @@ export const fetchMapData = ({ state }, range, pointFrequency = 15) => {
  * effort in a datapoint for a given time interval
  * @param intervalInMinutes
 */
-export const calculateBestEffort = ({ state, commit }, intervalInMinutes = 20) => {
+export const calculateBestEffort = ({ state, commit }, intervalInMinutes = 1) => {
 	if (!state.workoutData.samples) {
 		return;
 	}
 
 	const interval = intervalInMinutes * 60 * 1000;
+	const intervalInSeconds = intervalInMinutes * 60;
 
 	// timeframe is a point in time when an interval ends
 	let timeFrame = interval;
@@ -67,9 +68,6 @@ export const calculateBestEffort = ({ state, commit }, intervalInMinutes = 20) =
 	let elevationPerInterval = 0;
 	let distancePerInterval = 0;
 	let speedPerInterval = 0;
-
-	// seconds or iterations (we track this to find the average)
-	let seconds = 0;
 
 	const bestEffort = state.workoutData.samples
 		.reduce((acc, el, index) => {
@@ -88,22 +86,18 @@ export const calculateBestEffort = ({ state, commit }, intervalInMinutes = 20) =
 				speedPerInterval += speed ? speed : 0;
 			}
 
-			// we keep track of the seconds
-			// essentially this counts elements
-			seconds++;
-
 			// if we found the end of our timeframe or if this is the end of a data set
 			if (timeFrame === el.millisecondOffset
 				|| index === state.workoutData.samples.length - 1) {
 
 				// add interval values to our accumulator
-				acc.heartRate.values.push(heartRatePerInterval / seconds);
-				acc.power.values.push(powerPerInterval / seconds);
-				acc.cadence.values.push(cadencePerInterval / seconds);
-				acc.temperature.values.push(temperaturePerInterval / seconds);
-				acc.speed.values.push(speedPerInterval / seconds);
-				acc.distance.values.push(distancePerInterval / seconds);
-				acc.elevation.values.push(elevationPerInterval / seconds);
+				acc.heartRate.values.push(heartRatePerInterval / intervalInSeconds);
+				acc.power.values.push(powerPerInterval / intervalInSeconds);
+				acc.cadence.values.push(cadencePerInterval / intervalInSeconds);
+				acc.temperature.values.push(temperaturePerInterval / intervalInSeconds);
+				acc.speed.values.push(speedPerInterval / intervalInSeconds);
+				acc.distance.values.push(distancePerInterval / intervalInSeconds);
+				acc.elevation.values.push(elevationPerInterval / intervalInSeconds);
 
 				// we reset the per interval counters
 				powerPerInterval = 0;
@@ -118,10 +112,6 @@ export const calculateBestEffort = ({ state, commit }, intervalInMinutes = 20) =
 				// which so that we can detect when
 				// the next 5 minute stretch will end
 				timeFrame += interval;
-
-				// We reset the seconds / iterations
-				// so that we 
-				seconds = 0;
 			}
 
 			return acc;

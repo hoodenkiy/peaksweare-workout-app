@@ -17,6 +17,27 @@
 				>{{ effort.label }}</h4>
 			</div>
 		</div>
+		<!-- there is a more efficient way to do this -->
+		<div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+			<div class="btn-group mr-2" role="group" aria-label="First group">
+				<button
+					@click="calculateBestEffort(20)"
+					type="button"
+					class="btn btn-secondary">20 Min</button>
+				<button
+					@click="calculateBestEffort(1)"
+					type="button"
+					class="btn btn-secondary">1 Min</button>
+				<button
+					@click="calcugslateBestEffort(5)"
+					type="button"
+					class="btn btn-secondary">5 Min</button>
+				<button
+					@click="calculateBestEffort(10)"
+					type="button"
+					class="btn btn-secondary">10 Min</button>
+			</div>
+		</div>
 	</section>
 </template>
 
@@ -43,7 +64,7 @@ export default {
 	},
 	beforeMount() {
 		// dispatch actions to get data
-		this.calculateBestEffort()
+		this.calculateBestEffort(20)
 			.then(() => {
 				this.dataLoaded = true;
 			});
@@ -58,11 +79,9 @@ function formatEffortValue(effortArray) {
 	if (!effortArray || !effortArray.length) {
 		return '--';
 	}
+	const x = Math.max(...effortArray).toFixed(1);
 
-	return [... effortArray]
-		.sort()
-		.reverse()[0]
-		.toFixed(1);
+		return x;
 }
 
 </script>
