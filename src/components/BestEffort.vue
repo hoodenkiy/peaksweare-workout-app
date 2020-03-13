@@ -79,9 +79,9 @@ function formatEffortValue(effortArray) {
 	if (!effortArray || !effortArray.length) {
 		return '--';
 	}
-	const x = Math.max(...effortArray).toFixed(1);
 
-		return x;
+	return Math.max(...effortArray)
+		.toFixed(1);
 }
 
 </script>

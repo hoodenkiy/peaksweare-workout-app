@@ -49,7 +49,7 @@ export const fetchMapData = ({ state }, range, pointFrequency = 15) => {
  * effort in a datapoint for a given time interval
  * @param intervalInMinutes
 */
-export const calculateBestEffort = ({ state, commit }, intervalInMinutes = 1) => {
+export const calculateBestEffort = ({ state, commit }, intervalInMinutes = 20) => {
 	if (!state.workoutData.samples) {
 		return;
 	}
