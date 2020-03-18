@@ -1,5 +1,5 @@
 
-# Peaksware Javascript Code Test
+# Javascript Code Test
 
 Please build a single page application to visualize the workout data provided in `workout-data.json`, including a map, a graph, and an algorithm to analyze average power output.
 
@@ -18,3 +18,14 @@ The purpose of this test is to demonstrate your understanding of JavaScript web 
 
 ## Submission
 Please submit your test as an emailed zip file (please do not include the node_modules folder) or link to a private repo or private file sharing system. You can also provide a hosted link or it can run locally.
+
+#Issues and Suggestions For Improvement
+
+##Algorithm Accuracy
+-Your algorithm was efficient, and it was nearly correct, but it was still of by up to 10%
+Algorithm accuracy could have easily verified and improved with unit tests, but no tests were included
+##Separation of Concerns
+In calculateBestEffort, you have hard coded all of the channel names (power, heart rate, distance) at multiple points in the code. This will be hard to maintain in the future if we add more channels to the system. 'How to calculate a moving average' is a separate concern from 'what channels do we care about', and should be separated in the code.
+##Attention to Small Details
+Original code test instructions asked for 1,5,10,15,20 minute intervals, but 15 was missing from solution
+Five minute interval button was broken due to typo (calcugslateBestEffort)Feedback for improvement
